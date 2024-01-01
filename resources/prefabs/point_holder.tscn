@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0iuktfsnfu84"]
+
+[ext_resource type="Material" uid="uid://ml7x4hwwhk4g" path="res://resources/prefabs/point_material.tres" id="1_wiuc8"]
+[ext_resource type="Script" path="res://scripts/point_holder.gd" id="2_qrfbx"]
+[ext_resource type="ArrayMesh" uid="uid://62hfnx8nofxt" path="res://resources/prefabs/point_mesh.obj" id="2_xjjyr"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_nvgsb"]
+transform_format = 1
+use_colors = true
+mesh = ExtResource("2_xjjyr")
+
+[node name="point_holder" type="MultiMeshInstance3D"]
+material_override = ExtResource("1_wiuc8")
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_nvgsb")
+script = ExtResource("2_qrfbx")
+metadata/instance_count = 0
+metadata/processing = false

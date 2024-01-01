@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://62hfnx8nofxt"
+path="res://.godot/imported/point_mesh.obj-c205c2a055b556ec2e891798ca36079a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/point_mesh.obj-c205c2a055b556ec2e891798ca36079a.mesh"]
+
+source_file="res://resources/prefabs/point_mesh.obj"
+dest_files=["res://.godot/imported/point_mesh.obj-c205c2a055b556ec2e891798ca36079a.mesh", "res://.godot/imported/point_mesh.obj-c205c2a055b556ec2e891798ca36079a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

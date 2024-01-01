@@ -1,0 +1,107 @@
+[gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://ml7x4hwwhk4g"]
+
+[ext_resource type="Texture2D" uid="uid://cvdo0iot2ton" path="res://resources/textures/circle.png" id="1_e72yx"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_6kg4c"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_a0p2x"]
+source = 5
+texture = ExtResource("1_e72yx")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_5ncx1"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_br5ei"]
+parameter_name = "point"
+qualifier = 1
+texture_type = 1
+color_default = 1
+texture_filter = 1
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_we5uf"]
+default_input_values = [0, 0.0, 1, 2.0]
+operator = 5
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_8rf25"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_thcel"]
+constant = 1.0
+
+[sub_resource type="VisualShader" id="VisualShader_pr7bl"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_disabled, diffuse_toon, specular_toon, unshaded, shadows_disabled;
+
+global uniform sampler2D point : source_color, hint_default_black, filter_nearest, repeat_disable;
+
+
+
+void fragment() {
+// Input:2
+	vec4 n_out2p0 = COLOR;
+
+
+// FloatConstant:8
+	float n_out8p0 = 1.000000;
+
+
+// VectorOp:7
+	vec4 n_out7p0 = n_out2p0 * vec4(n_out8p0);
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(point, UV);
+
+
+// VectorDecompose:4
+	float n_out4p0 = n_out3p0.x;
+	float n_out4p1 = n_out3p0.y;
+	float n_out4p2 = n_out3p0.z;
+	float n_out4p3 = n_out3p0.w;
+
+
+// FloatOp:6
+	float n_in6p1 = 2.00000;
+	float n_out6p0 = pow(n_out4p3, n_in6p1);
+
+
+// Output:0
+	ALBEDO = vec3(n_out7p0.xyz);
+	ALPHA = n_out6p0;
+
+
+}
+"
+graph_offset = Vector2(-1001, 204)
+modes/depth_draw = 2
+modes/cull = 2
+modes/diffuse = 3
+modes/specular = 1
+flags/unshaded = true
+flags/shadows_disabled = true
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_6kg4c")
+nodes/fragment/2/position = Vector2(-760, 240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_a0p2x")
+nodes/fragment/3/position = Vector2(-880, 20)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDecompose_5ncx1")
+nodes/fragment/4/position = Vector2(-620, 20)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture2DParameter_br5ei")
+nodes/fragment/5/position = Vector2(-1260, 40)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_we5uf")
+nodes/fragment/6/position = Vector2(-380, 100)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_8rf25")
+nodes/fragment/7/position = Vector2(-380, 240)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatConstant_thcel")
+nodes/fragment/8/position = Vector2(-640, 320)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 0, 5, 0, 3, 2, 4, 3, 6, 0, 6, 0, 0, 1, 7, 0, 0, 0, 2, 0, 7, 0, 8, 0, 7, 1)
+
+[resource]
+render_priority = 0
+shader = SubResource("VisualShader_pr7bl")
